@@ -1,0 +1,28 @@
+server:
+  port: 8083
+spring:
+  cloud:
+    stream:
+      kafka:
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          bindings:
+            icuEventIn:
+              consumer:
+                application-id: raw-event-stream
+            processedEventOut:
+              producer:
+                application-id: processed-event-stream
+        binder:
+          brokers: localhost:9092
+      bindings:
+        icuEventIn:
+          destination: icu-event
+          group: icueventGroup
+        processedEventOut:
+          destination: processedEvent
+
